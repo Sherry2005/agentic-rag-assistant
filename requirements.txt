@@ -1,0 +1,8 @@
+beautifulsoup4
+psycopg[binary]
+pgvector
+fastapi
+uvicorn
+groq
+fastembed
+python-dotenv

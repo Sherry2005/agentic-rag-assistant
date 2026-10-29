@@ -1,0 +1,21 @@
+﻿.env
+.env.*
+!.env.example
+
+.venv/
+venv/
+__pycache__/
+*.py[cod]
+
+.next/
+node_modules/
+out/
+dist/
+build/
+
+.pytest_cache/
+.mypy_cache/
+
+# Local document data and generated chunks
+data/raw/
+data/chunks_*.jsonl
