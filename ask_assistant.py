@@ -1,6 +1,12 @@
 
 import os
 
+# Use writable temporary storage on Vercel.
+os.environ["HF_HOME"] = "/tmp/huggingface"
+os.environ["HF_HUB_CACHE"] = "/tmp/huggingface/hub"
+os.environ["HF_XET_CACHE"] = "/tmp/huggingface/xet"
+os.environ["XDG_CACHE_HOME"] = "/tmp/.cache"
+
 import psycopg
 from dotenv import load_dotenv
 from fastembed import TextEmbedding
@@ -20,8 +26,12 @@ def get_embedding_model():
     global _embedding_model
 
     if _embedding_model is None:
-        _embedding_model = TextEmbedding(model_name=MODEL_NAME)
+        os.makedirs("/tmp/fastembed", exist_ok=True)
 
+        _embedding_model = TextEmbedding(
+            model_name=MODEL_NAME,
+            cache_dir="/tmp/fastembed",
+        )
     return _embedding_model
 
 
