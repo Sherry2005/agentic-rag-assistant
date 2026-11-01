@@ -1,3 +1,4 @@
+import logging
 import os
 from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
@@ -53,9 +54,15 @@ def ask(request: AskRequest):
 
     try:
         return answer_question(question)
+
     except ValueError as exc:
-        raise HTTPException(status_code=422, detail=str(exc)) from exc
+        raise HTTPException(
+            status_code=422,
+            detail=str(exc),
+        ) from exc
+
     except Exception:
+        logging.exception("Error while processing /ask request")
         raise HTTPException(
             status_code=500,
             detail="The assistant could not process your question.",
